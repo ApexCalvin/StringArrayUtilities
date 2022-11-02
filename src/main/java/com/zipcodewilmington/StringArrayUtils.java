@@ -79,22 +79,55 @@ public class StringArrayUtils {
      * @return true if each letter in the alphabet has been used in the array
      */ // TODO
     public static boolean isPangramic(String[] array) {
-        String phrase = array.toString();
+
+        String phrase = Arrays.toString(array).toLowerCase();
         String alpha = "abcdefghijklmnopqrstuvwxyz";
 
-        for (int i=0; i <= array.length-1; i++){
-            for (int j=0; j <= 26; j++) {
-                if(alpha.charAt(j) == phrase.charAt(i)) {
-                    String x = Character.toString(alpha.charAt(i));
-                    alpha.replace(x, "");
-                    System.out.println(alpha);
+        for(int i = 0 ; i < alpha.length(); i++) {
+            if (!phrase.contains(String.valueOf(alpha.charAt(i)))) {
+                return false;
+            }
+        }
+        return true;
+/*
+        String[] array = {"Five quacking", "zephyrs", "jolt my", "wax bed"};
+        String phrase = Arrays.toString(array);
+        String test = phrase.replace("[", "");
+        String test2 = test.replace("]", "");
+        String test3 = test2.replace(",", "");
+        String test4 = test3.toLowerCase();
+        String test5 = test4.replace(" ", "");
+        System.out.println(test5);
+        String alpha = "abcdefghijklmnopqrstuvwxyz";
+        StringBuilder savedAlpha = new StringBuilder();
+        boolean isIt = true;
+        for (int i = 0; i <= test5.length() - 1; i++) { //cycles through phrase
+            //System.out.print(test3.charAt(i));
+            for (int j = 0; j <= alpha.length() - 1; j++) { //cycles through alphabet
+                //System.out.print(alpha.charAt(j));
+                if (test3.charAt(i) == alpha.charAt(j)) {
+                    //System.out.println("Hello"); // matches!
+                    if(savedAlpha.toString().contains(String.valueOf(test3.charAt(i)))) {
+                        break;
+                    } else {
+                        savedAlpha.append(alpha.charAt(j)); }}}}
+        System.out.println("StringBuilder: savedAlpha: " + savedAlpha);
+        //System.out.println("Is pangramic: " +(savedAlpha.toString() == alpha)); //compare value
+        System.out.println("Is pangramic: " +(savedAlpha.length() == alpha.length())); //compare length
+ */
+    }
+
+    public boolean searchAlpha(String phrase) {
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+
+        for(int i = 0 ; i < phrase.length()-1 ; i++) {
+            for (int j = 0 ; i < 26 ; j++) {
+                if (alphabet[j] != phrase.charAt(i)) {
+                    return false;
                 }
             }
         }
-        if (alpha.length() == 0) {
-            return true;
-        }
-        return false;
+        return true;
     }
 
     /**
@@ -136,7 +169,15 @@ public class StringArrayUtils {
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
-        return null;
+        String[] array2 = new String[array.length];
+        int count = 0;
+        for (int i=0 ; i <= array.length-1 ; i++) {
+            if (array[i] != array[i+1]) {
+                array2[count] = array[i];
+                count++;
+            }
+        }
+        return array2;
     }
 
     /**
@@ -144,8 +185,15 @@ public class StringArrayUtils {
      * @return array of Strings with each consecutive duplicate occurrence concatenated as a single string in an array of Strings
      */ // TODO
     public static String[] packConsecutiveDuplicates(String[] array) {
+        String[] array2 = new String[array.length];
+        int count = 0;
+        for (int i=0 ; i <= array.length-1 ; i++) {
+            if (array[i] == array[i+1]) {
+                array2[count] = array[i]; //add value type string to new
+                count++;                   //remove element old
+            }
+        }
         return null;
     }
-
 
 }
