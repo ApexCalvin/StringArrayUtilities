@@ -1,5 +1,6 @@
 package com.zipcodewilmington;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -169,31 +170,61 @@ public class StringArrayUtils {
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
-        String[] array2 = new String[array.length];
-        int count = 0;
-        for (int i=0 ; i <= array.length-1 ; i++) {
-            if (array[i] != array[i+1]) {
-                array2[count] = array[i];
-                count++;
+
+        ArrayList<String> list = new ArrayList<String>();
+
+        for (int i = 0 ; i < array.length -1; i++) {
+            if (array[i] != array[i + 1]) {
+                list.add(array[i]);
             }
         }
-        return array2;
+        list.add(array[array.length-1]);
+
+        String[] noDups = list.toArray(new String[list.size()]);
+
+        return noDups;
     }
 
     /**
      * @param array array of chars
      * @return array of Strings with each consecutive duplicate occurrence concatenated as a single string in an array of Strings
      */ // TODO
-    public static String[] packConsecutiveDuplicates(String[] array) {
-        String[] array2 = new String[array.length];
-        int count = 0;
-        for (int i=0 ; i <= array.length-1 ; i++) {
-            if (array[i] == array[i+1]) {
-                array2[count] = array[i]; //add value type string to new
-                count++;                   //remove element old
+    public static String[] packConsecutiveDuplicates(String[] array) { //IDK BUT IT WORKS
+
+        ArrayList<String> list = new ArrayList<String>();
+
+        for (int i = 1 ; i < array.length ; i++) {
+
+            if (array[i] != array[i - 1]) {
+                list.add(array[i-1] + " ");
+            } else {
+                list.add(array[i]);
             }
         }
-        return null;
-    }
+        list.add(array[array.length-1]);
+        String catted = String.join("", list);
 
+        String[] catArr = catted.split(" ");
+
+        return catArr;
+
+
+
+
+        /*
+        for (int i = 0 ; i < array.length-1 ; i++) {
+            if (array[i] == array[i+1]) {
+                holder += array[i];
+            } else if (array[i] != array[i+1]) {
+                holder += array[i];
+                list.add(holder);
+                holder = "";
+            }
+        }
+        list.add(array[array.length-1]);
+        System.out.println(list);
+        String[] catted = list.toArray(new String[list.size()]);
+        return catted;
+         */
+    }
 }
